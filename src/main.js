@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { mix } from "three/tsl";
 
 // setup the camera
 const camera = new THREE.PerspectiveCamera(
@@ -15,6 +16,7 @@ const scene = new THREE.Scene();
 
 // load 3d model
 let bee;
+let mixer; // for animation
 const loader = new GLTFLoader();
 loader.load(
   "/assets/bee.glb",
@@ -23,6 +25,10 @@ loader.load(
     bee.position.y = -1;
     bee.rotation.y = 1.5;
     scene.add(bee);
+
+    mixer = new THREE.AnimationMixer(bee);
+    mixer.clipAction(glft.animations[0]).play();
+    console.log(glft.animations);
   },
   function (xhr) {},
   function (error) {
@@ -51,6 +57,9 @@ document.querySelector("#container3D").appendChild(renderer.domElement);
 const render3D = () => {
   requestAnimationFrame(render3D);
   renderer.render(scene, camera);
+  if (mixer) {
+    mixer.update(0.02);
+  }
 };
 
 render3D();
