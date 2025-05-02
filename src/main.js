@@ -22,8 +22,12 @@ loader.load(
   "/assets/bee.glb",
   function (glft) {
     bee = glft.scene;
+    bee.position.x = 1.5;
     bee.position.y = -1;
-    bee.rotation.y = 1.5;
+    bee.position.z = -5;
+    
+    bee.rotation.x = 0.5;
+    bee.rotation.y = -0.5;
     scene.add(bee);
 
     mixer = new THREE.AnimationMixer(bee);
