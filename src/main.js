@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { mix } from "three/tsl";
+import gsap from "gsap";
 
 // setup the camera
 const camera = new THREE.PerspectiveCamera(
@@ -22,17 +22,17 @@ loader.load(
   "/assets/bee.glb",
   function (glft) {
     bee = glft.scene;
-    bee.position.x = 1.5;
+    bee.position.x = 0;
     bee.position.y = -1;
-    bee.position.z = -5;
-    
-    bee.rotation.x = 0.5;
-    bee.rotation.y = -0.5;
+    bee.position.z = 0;
+
+    bee.rotation.x = 0;
+    bee.rotation.y = 1.5;
+    bee.rotation.z = 0;
     scene.add(bee);
 
     mixer = new THREE.AnimationMixer(bee);
     mixer.clipAction(glft.animations[0]).play();
-    console.log(glft.animations);
   },
   function (xhr) {},
   function (error) {
@@ -55,9 +55,7 @@ const topLight = new THREE.DirectionalLight(0xffffff, 1);
 topLight.position.set(500, 500, 500);
 scene.add(topLight);
 
-// push the renderer to the DOM
-document.querySelector("#container3D").appendChild(renderer.domElement);
-
+// run the animation
 const render3D = () => {
   requestAnimationFrame(render3D);
   renderer.render(scene, camera);
@@ -67,3 +65,74 @@ const render3D = () => {
 };
 
 render3D();
+
+let arrPositionModel = [
+  {
+    id: "banner",
+    position: { x: 0, y: -1, z: 0 },
+    rotation: { x: 0, y: 1.5, z: 0 },
+  },
+  {
+    id: "intro",
+    position: { x: 1.5, y: -1, z: -5 },
+    rotation: { x: 0.5, y: -0.5, z: 0 },
+  },
+  {
+    id: "description",
+    position: { x: -1, y: -1, z: -5 },
+    rotation: { x: 0, y: 0.5, z: 0 },
+  },
+  {
+    id: "contact",
+    position: { x: 1, y: -1, z: 0 },
+    rotation: { x: 0.3, y: -0.5, z: 0 },
+  },
+];
+
+const modelMove = () => {
+  const sections = document.querySelectorAll(".section");
+  let currentSection;
+  sections.forEach((section) => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= window.innerHeight / 3) {
+      currentSection = section.id;
+    }
+  });
+
+  let position_active = arrPositionModel.findIndex(
+    (val) => val.id === currentSection
+  );
+
+  // if (currentSection === "banner") {
+  //   mixer.clipAction(glft.animations[1]).play();
+  // } else {
+  //   mixer.clipAction(glft.animations[0]).play();
+  // }
+
+  if (position_active >= 0) {
+    let new_coordinates = arrPositionModel[position_active];
+    gsap.to(bee.position, {
+      x: new_coordinates.position.x,
+      y: new_coordinates.position.y,
+      z: new_coordinates.position.z,
+      duration: 1,
+      ease: "power2.out",
+    });
+    gsap.to(bee.rotation, {
+      x: new_coordinates.rotation.x,
+      y: new_coordinates.rotation.y,
+      z: new_coordinates.rotation.z,
+      duration: 1,
+      ease: "power2.out",
+    });
+  }
+};
+
+window.addEventListener("scroll", () => {
+  if (bee) {
+    modelMove();
+  }
+});
+
+// push the renderer to the DOM
+document.querySelector("#container3D").appendChild(renderer.domElement);
