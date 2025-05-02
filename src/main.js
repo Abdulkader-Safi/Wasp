@@ -1,5 +1,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+
 import gsap from "gsap";
 
 // setup the camera
@@ -18,9 +20,20 @@ const scene = new THREE.Scene();
 let bee;
 let mixer; // for animation
 const loader = new GLTFLoader();
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath("/draco/"); // Make sure you host decoder files here
+loader.setDRACOLoader(dracoLoader);
+
+const timeout = setTimeout(() => {
+  alert("Model loading timeout. Please refresh the page.");
+}, 15000); // 15 seconds
+
+
 loader.load(
   "/assets/bee.glb",
   function (glft) {
+    clearTimeout(timeout);
+
     bee = glft.scene;
     bee.position.x = 0;
     bee.position.y = -1;
@@ -33,8 +46,15 @@ loader.load(
 
     mixer = new THREE.AnimationMixer(bee);
     mixer.clipAction(glft.animations[0]).play();
+
+    document.getElementById("loader-container").style.display = "none";
   },
-  function (xhr) {},
+  function (xhr) {
+    if (xhr.lengthComputable) {
+      const percentComplete = (xhr.loaded / xhr.total) * 100;
+      document.getElementById("loader-bar").style.width = `${percentComplete}%`;
+    }
+  },
   function (error) {
     alert(error);
   }
