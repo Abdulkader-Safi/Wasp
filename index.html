@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,68 +15,85 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
-    <div class="section w-full min-h-screen bg-yellow-50" id="banner">
-      <section class="w-full h-full py-10 flex items-center justify-center">
-        <h1 class="text-6xl font-bold text-gray-800">
-          Welcome to the World of Bees 🐝
-        </h1>
-      </section>
-    </div>
-    <div
-      class="section w-full min-h-screen flex flex-row justify-center items-center bg-yellow-100"
-      id="intro"
-    >
-      <section
-        class="w-full h-full flex flex-col items-center justify-center text-center px-6"
+
+  <body class="">
+    <div class="w-full overflow-y-scroll" id="body">
+      <div id="container3D"></div>
+
+      <div class="section w-full h-screen bg-yellow-50 snap-start" id="banner">
+        <section class="w-full h-full py-10 flex items-start justify-center">
+          <h1 class="text-6xl font-bold text-gray-800">
+            Welcome to the World of Bees 🐝
+          </h1>
+        </section>
+      </div>
+
+      <div
+        class="section w-full h-screen flex flex-row justify-center items-center bg-yellow-100 snap-start"
+        id="intro"
       >
-        <h2 class="text-4xl font-semibold mb-4">Why Bees Matter</h2>
-        <p class="text-lg max-w-2xl text-gray-700">
-          Bees are more than honey. They pollinate 80% of the crops we eat.
-          Learn how they keep our planet alive.
-        </p>
-      </section>
-      <section class="w-full h-full"></section>
-    </div>
-    <div
-      class="section w-full min-h-screen flex flex-row justify-center items-center bg-yellow-50"
-      id="description"
-    >
-      <section class="w-full h-full"></section>
-      <section
-        class="w-full h-full flex flex-col items-center justify-center text-center px-6"
-      >
-        <div class="max-w-4xl mx-auto text-gray-800">
-          <h3 class="text-3xl font-bold mb-6">Inside the Hive</h3>
-          <ul class="space-y-4 text-lg leading-relaxed">
-            <li>• The Queen: Lays up to 2,000 eggs a day.</li>
-            <li>• Workers: Female bees that clean, forage, and protect.</li>
-            <li>• Drones: Males whose only job is to mate.</li>
-          </ul>
-        </div>
-      </section>
-    </div>
-    <div
-      class="section w-full min-h-screen flex flex-row justify-center items-center bg-yellow-100"
-      id="contact"
-    >
-      <section
-        class="w-full min-h-screen py-16 px-8 flex flex-col items-center justify-center"
-      >
-        <h4 class="text-3xl font-semibold mb-4">Want to Help Bees?</h4>
-        <p class="text-lg text-center max-w-xl mb-8">
-          Plant flowers. Skip pesticides. Support local honey farms. Let’s keep
-          bees buzzing!
-        </p>
-        <a
-          href="#contact"
-          class="bg-yellow-400 text-black font-bold py-3 px-6 rounded hover:bg-yellow-300 transition"
+        <section
+          class="w-full h-full flex flex-col items-center justify-center text-center px-6"
         >
-          Get Involved
-        </a>
-      </section>
-      <section class="w-full h-full"></section>
+          <h2 class="text-4xl font-semibold mb-4">Why Bees Matter</h2>
+          <p class="text-lg max-w-2xl text-gray-700">
+            Bees are more than honey. They pollinate 80% of the crops we eat.
+            Learn how they keep our planet alive.
+          </p>
+        </section>
+        <section class="w-full h-full"></section>
+      </div>
+
+      <div
+        class="section w-full h-screen flex flex-row justify-center items-center bg-yellow-50 snap-start"
+        id="description"
+      >
+        <section class="w-full h-full"></section>
+        <section
+          class="w-full h-full flex flex-col items-center justify-center text-center px-6"
+        >
+          <div class="max-w-4xl mx-auto text-gray-800">
+            <h3 class="text-3xl font-bold mb-6">Inside the Hive</h3>
+            <ul class="space-y-4 text-lg leading-relaxed">
+              <li>• The Queen: Lays up to 2,000 eggs a day.</li>
+              <li>• Workers: Female bees that clean, forage, and protect.</li>
+              <li>• Drones: Males whose only job is to mate.</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <div
+        class="section w-full h-screen flex flex-row justify-center items-center bg-yellow-100 snap-start"
+        id="contact"
+      >
+        <section
+          class="w-full min-h-screen py-16 px-8 flex flex-col items-center justify-center"
+        >
+          <h4 class="text-3xl font-semibold mb-4">Want to Help Bees?</h4>
+          <p class="text-lg text-center max-w-xl mb-8">
+            Plant flowers. Skip pesticides. Support local honey farms. Let’s
+            keep bees buzzing!
+          </p>
+          <a
+            href="#contact"
+            class="bg-yellow-400 text-black font-bold py-3 px-6 rounded hover:bg-yellow-300 transition"
+          >
+            Get Involved
+          </a>
+        </section>
+        <section class="w-full h-full"></section>
+      </div>
     </div>
+
+    <section class="w-full min-h-screen py-16 flex items-center justify-center">
+      <h4 class="text-3xl font-semibold mb-4">
+        By
+        <a href="https://abdulkadersafi.com" class="font-bold"
+          >Abdulkader Safi</a
+        >
+      </h4>
+    </section>
 
     <div
       class="fixed top-0 left-0 w-full h-1 bg-[rgba(0, 0, 0, 0.1)] z-50"
@@ -85,7 +102,6 @@
       <div class="w-0 h-full bg-[#00bcd4]" id="loader-bar"></div>
     </div>
 
-    <div id="container3D"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

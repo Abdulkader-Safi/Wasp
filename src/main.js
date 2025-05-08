@@ -4,13 +4,12 @@ import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 
 import gsap from "gsap";
 
+const body = document.querySelector("#body");
+const width = body.offsetWidth;
+const height = (width * 9) / 16;
+
 // setup the camera
-const camera = new THREE.PerspectiveCamera(
-  10,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
+const camera = new THREE.PerspectiveCamera(10, width / height, 0.1, 1000);
 camera.position.z = 13;
 
 // setup the scene
@@ -27,7 +26,6 @@ loader.setDRACOLoader(dracoLoader);
 const timeout = setTimeout(() => {
   alert("Model loading timeout. Please refresh the page.");
 }, 15000); // 15 seconds
-
 
 loader.load(
   "/assets/bee.glb",
@@ -57,7 +55,7 @@ loader.load(
   },
   function (error) {
     alert(error);
-  }
+  },
 );
 
 // setup the renderer
@@ -65,7 +63,7 @@ const renderer = new THREE.WebGLRenderer({
   alpha: true,
   antialias: true,
 });
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(width, height);
 
 // setup the light
 const light = new THREE.AmbientLight(0xffffff, 1.3);
@@ -120,7 +118,7 @@ const modelMove = () => {
   });
 
   let position_active = arrPositionModel.findIndex(
-    (val) => val.id === currentSection
+    (val) => val.id === currentSection,
   );
 
   // if (currentSection === "banner") {
